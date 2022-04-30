@@ -7,7 +7,9 @@ import {
 	ScrollView,
 	Alert
 } from 'react-native'
-import { THEME, DATA } from '../helpers/constants';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import AppHeaderIcon from '../components/AppHeaderIcon'
+import { THEME, DATA } from '../helpers/constants'
 
 const { DANGER_COLOR, LIGHT_COLOR } = THEME
 
@@ -48,12 +50,23 @@ const PostScreen = ({ navigation }) => {
 
 PostScreen.navigationOptions = ({ navigation }) => {
 	const date = navigation.getParam('date')
+	const booked = navigation.getParam('booked')
+	const iconName = booked ? 'ios-star' : 'ios-star-outline'
 	return {
 		headerTitle: `Post from ${ new Date(date).toLocaleDateString() }`,
 		headerStyle: {
 			backgroundColor: DANGER_COLOR,
 		},
-		headerTintColor: LIGHT_COLOR
+		headerTintColor: LIGHT_COLOR,
+		headerRight: () => (
+			<HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+				<Item
+					title='Take photo'
+					iconName={iconName}
+					onPress={() => console.log('press photo')}
+				/>
+			</HeaderButtons>
+		),
 	}
 }
 
