@@ -1,4 +1,7 @@
 import { View, StyleSheet, Text } from 'react-native'
+import {THEME} from "../helpers/constants";
+
+const {DANGER_COLOR, LIGHT_COLOR} = THEME
 
 const PostScreen = () => {
 	return (
@@ -6,6 +9,14 @@ const PostScreen = () => {
 			<Text>PostScreen</Text>
 		</View>
 	)
+}
+
+PostScreen.navigationOptions = {
+	headerTitle: 'Post number 42',
+	headerStyle: {
+		backgroundColor: DANGER_COLOR,
+	},
+	headerTintColor: LIGHT_COLOR
 }
 
 const styles = StyleSheet.create({
