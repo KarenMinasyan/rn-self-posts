@@ -12,33 +12,27 @@ import { THEME } from '../helpers/constants'
 
 const { MAIN_COLOR, LIGHT_COLOR } = THEME
 
-const PostNavigator = createStackNavigator({
-	Main: MainScreen,
-	Post: {
-		screen: PostScreen
-	}
-}, {
-	initialRouteName: 'Main',
+const navigatorOptions = {
 	defaultNavigationOptions: {
 		headerStyle: {
 			backgroundColor: Platform.OS === 'android' ? MAIN_COLOR : LIGHT_COLOR
 		},
 		headerTintColor: Platform.OS === 'android' ? LIGHT_COLOR : MAIN_COLOR
 	}
-})
+}
+
+const PostNavigator = createStackNavigator({
+	Main: MainScreen,
+	Post: PostScreen
+},
+	navigatorOptions
+)
 
 const BookedNavigator = createStackNavigator({
 	Booked: BookedScreen,
 	Post: PostScreen
 },
-	{
-		defaultNavigationOptions: {
-			headerStyle: {
-				backgroundColor: Platform.OS === 'android' ? MAIN_COLOR : LIGHT_COLOR
-			},
-			headerTintColor: Platform.OS === 'android' ? LIGHT_COLOR : MAIN_COLOR
-		}
-	}
+	navigatorOptions
 )
 
 const bottomTabsConfig = 	{
