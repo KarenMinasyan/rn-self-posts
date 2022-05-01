@@ -1,7 +1,7 @@
-import {HeaderButtons, Item} from 'react-navigation-header-buttons'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import AppHeaderIcon from '../components/AppHeaderIcon'
 import PostList from '../components/PostList';
-import {DATA} from '../helpers/constants'
+import { DATA } from '../helpers/constants'
 
 const MainScreen = ({ navigation }) => {
 	const openPostHandler = post => {
@@ -17,14 +17,14 @@ const MainScreen = ({ navigation }) => {
 	)
 }
 
-MainScreen.navigationOptions = {
+MainScreen.navigationOptions = ({ navigation }) => ({
 	headerTitle: 'my blog',
 	headerRight: () => (
 		<HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
 				<Item
 					title='Take photo'
 					iconName='ios-camera'
-					onPress={() => console.log('press photo')}
+					onPress={() =>  navigation.push('Create')}
 				/>
 	  </HeaderButtons>
 	),
@@ -33,10 +33,10 @@ MainScreen.navigationOptions = {
 			<Item
 				title='Toggle Drawer'
 				iconName='ios-menu'
-				onPress={() => console.log('press photo')}
+				onPress={() => navigation.toggleDrawer()}
 			/>
 		</HeaderButtons>
 	)
-}
+})
 
 export default MainScreen;
