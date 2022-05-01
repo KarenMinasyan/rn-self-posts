@@ -44,12 +44,14 @@ const BottomNavigator = createBottomTabNavigator({
 	Post: {
 		screen: PostNavigator,
 		navigationOptions: {
+			tabBarLabel: 'All',
 			tabBarIcon: info => <Ionicons name='ios-albums' size={25} color={info.tintColor} />
 		}
 	},
 	Booked: {
 		screen: BookedNavigator,
 		navigationOptions: {
+			tabBarLabel: 'Favorite',
 			tabBarIcon: info => <Ionicons name='ios-star' size={25} color={info.tintColor} />
 		}
 	}
