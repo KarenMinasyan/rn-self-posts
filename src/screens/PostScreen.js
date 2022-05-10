@@ -11,8 +11,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import AppHeaderIcon from '../components/AppHeaderIcon'
-import { THEME, DATA } from '../helpers/constants'
-import { toggleBooked } from '../store/actions/post';
+import { THEME } from '../helpers/constants'
+import { removePost, toggleBooked } from '../store/actions/post';
 
 const { DANGER_COLOR, LIGHT_COLOR } = THEME
 
@@ -20,6 +20,7 @@ const PostScreen = ({ navigation }) => {
 	const postId = navigation.getParam('postId')
 	const dispatch = useDispatch()
 	const booked = useSelector(state => state.post.bookedPosts.some(post => post.id === postId))
+	const post = useSelector(state => state.post.allPosts.find(p => p.id === postId))
 
 	useEffect(() => {
 		navigation.setParams({ toggleHandler })
@@ -33,8 +34,6 @@ const PostScreen = ({ navigation }) => {
 		dispatch(toggleBooked(postId))
 	}, [dispatch, postId]);
 
-	const post = DATA.find(p => p.id === postId)
-
 	const removeHandler = () => {
 		Alert.alert(
 			'Delete post',
@@ -44,14 +43,21 @@ const PostScreen = ({ navigation }) => {
 					text: 'Cancel',
 					style: 'cancel'
 				},
-				{ text: 'Delete', style: 'destructive', onPress: () => {} }
+				{
+					text: 'Delete',
+					style: 'destructive',
+					onPress: () => {
+					 navigation.navigate('Main')
+				   dispatch(removePost(postId))
+				  }
+				}
 			],
 			{cancelable: false},
 		);
 	}
 
 	return (
-		<ScrollView>
+		post ? (<ScrollView>
 			<Image source={{uri: post.img}} style={styles.image} />
 			<View style={styles.textWrap}>
 				<Text style={styles.title}>{post.text}</Text>
@@ -61,7 +67,7 @@ const PostScreen = ({ navigation }) => {
 				color={DANGER_COLOR}
 				onPress={removeHandler}
 			/>
-		</ScrollView>
+		</ScrollView>) : null
 	)
 }
 
