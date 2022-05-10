@@ -1,8 +1,9 @@
-import { Text, View } from 'react-native';
-import {useState} from "react";
+import {useState} from 'react';
+import { Provider } from 'react-redux'
 import AppLoading from 'expo-app-loading';
-import {bootstrap} from "./src/bootstrap";
-import {AppNavigation} from "./src/navigation/AppNavigation";
+import {bootstrap} from './src/bootstrap';
+import { AppNavigation } from './src/navigation/AppNavigation';
+import store from './src/store'
 
 const App = () => {
 	const [isReady, setIsReady] = useState(false)
@@ -21,7 +22,9 @@ const App = () => {
 		)
 	}
   return (
-    <AppNavigation />
+   <Provider store={store}>
+		 <AppNavigation />
+	 </Provider>
   )
 }
 
